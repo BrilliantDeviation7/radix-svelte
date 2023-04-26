@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { getPropsObj } from '$lib/internal/helpers';
 	import { schemas } from './(previews)/schemas';
 
@@ -24,7 +25,30 @@
 			copied = false;
 		}, 2500);
 	}
+
+	onMount(() => {
+		const blob = document.getElementById('blob');
+
+		window.onpointermove = (event) => {
+			const { clientX, clientY } = event;
+
+			if (blob) {
+				blob.animate(
+					{
+						left: `${clientX}px`,
+						top: `${clientY}px`,
+					},
+					{ duration: 3000, fill: 'forwards' }
+				);
+			}
+		};
+	});
 </script>
+
+<div id="blob-container">
+	<div id="blob" />
+</div>
+<div id="blur" />
 
 <div class="relative grid grow place-items-center p-6">
 	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
@@ -73,3 +97,48 @@
 		{/each}
 	</div>
 </div>
+
+<style>
+	#blob-container {
+		position: fixed;
+		z-index: -2;
+	}
+
+	#blob {
+		background-color: white;
+		height: 34vmax;
+		aspect-ratio: 1;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		translate: -50% -50%;
+		border-radius: 50%;
+		/* background: linear-gradient(to right, #6ee7b7, #ff590a); */
+		background: linear-gradient(90deg, rgba(110, 231, 183, 1) 0%, rgba(255, 89, 10, 1) 60%);
+		animation: rotate 20s infinite;
+		opacity: 0.8;
+	}
+
+	@keyframes rotate {
+		from {
+			rotate: 0deg;
+		}
+
+		50% {
+			scale: 1 1.25;
+		}
+
+		to {
+			rotate: 360deg;
+		}
+	}
+
+	#blur {
+		margin-top: -64px;
+		height: 100%;
+		width: 100%;
+		position: fixed;
+		z-index: -1;
+		backdrop-filter: blur(12vmax);
+	}
+</style>

@@ -40,16 +40,16 @@
 					class="text-md rounded bg-vermilion-600 p-4 font-sans font-semibold text-white transition hover:bg-vermilion-800 active:translate-y-0.5"
 				>
 					Read the docs
-					<ArrowRight class="inline-block w-5 h-5 ml-2 text-white" />
+					<ArrowRight class="ml-2 inline-block h-5 w-5 text-white" />
 				</a>
 				<button
 					on:click={copyInstallCommand}
-					class="group text-md rounded bg-zinc-900 p-4 font-mono text-white transition hover:bg-zinc-800 active:translate-y-0.5"
+					class="text-md group rounded bg-zinc-900 p-4 font-mono text-white transition hover:bg-zinc-800 active:translate-y-0.5"
 					><span>npm install radix-svelte</span>
 					{#if copied}
-						<Check class="inline-block w-5 h-5 ml-2 text-vermilion-500" />
+						<Check class="ml-2 inline-block h-5 w-5 text-vermilion-500" />
 					{:else}
-						<Copy class="inline-block w-5 h-5 ml-2 group-hover:text-vermilion-500" />
+						<Copy class="ml-2 inline-block h-5 w-5 group-hover:text-vermilion-500" />
 					{/if}
 				</button>
 			</div>
